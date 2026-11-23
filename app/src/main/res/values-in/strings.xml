@@ -1,0 +1,92 @@
+<resources>
+    <string name="app_name">CiLog</string>
+    <string name="app_tagline">Katalog Sinema</string>
+
+    <!-- Navigasi -->
+    <string name="nav_home">Beranda</string>
+    <string name="nav_search">Cari</string>
+    <string name="nav_favorites">Favorit</string>
+    <string name="nav_account">Akun</string>
+
+    <!-- Kategori -->
+    <string name="category_popular">Populer</string>
+    <string name="category_now_playing">Sedang Tayang</string>
+    <string name="category_upcoming">Akan Tayang</string>
+    <string name="category_top_rated">Rating Tertinggi</string>
+
+    <!-- Layar Detail -->
+    <string name="overview_title">Sinopsis</string>
+    <string name="cast_title">Pemeran &amp; Kru</string>
+    <string name="recommendations_title">Film Serupa</string>
+    <string name="watch_providers_title">Tersedia di (Indonesia)</string>
+    <string name="watch_trailer">Tonton Trailer</string>
+    <string name="no_trailer_available">Trailer tidak tersedia untuk film ini.</string>
+    <string name="synopsis_fallback_notice">Sinopsis hanya tersedia dalam Bahasa Inggris.</string>
+    <string name="rating_score">%1$.1f / 10</string>
+    <string name="runtime_format">%1$d mnt</string>
+    <string name="release_date_label">Tanggal Rilis: %1$s</string>
+    <string name="genre_label">Genre</string>
+
+    <!-- Layar Pencarian -->
+    <string name="search_placeholder">Cari judul film, genre, pemeran...</string>
+    <string name="search_empty_title">Temukan Film Favoritmu</string>
+    <string name="search_empty_desc">Jelajahi ribuan film terlengkap dari katalog TMDB.</string>
+    <string name="search_no_results">Tidak ada film yang cocok dengan \"%1$s\".</string>
+
+    <!-- Layar Favorit -->
+    <string name="favorites_title">Film Favorit Saya</string>
+    <string name="favorites_empty_title">Belum Ada Favorit</string>
+    <string name="favorites_empty_desc">Jelajahi katalog dan ketuk ikon hati untuk menyimpan film favoritmu di sini!</string>
+    <string name="favorite_added">Film ditambahkan ke favorit</string>
+    <string name="favorite_removed">Film dihapus dari favorit</string>
+    <string name="favorite_login_required">Silakan masuk untuk menyinkronkan film favorit antar perangkat.</string>
+
+    <!-- Layar Akun & Autentikasi -->
+    <string name="account_title">Profil &amp; Akun</string>
+    <string name="guest_user_title">Pengguna Tamu</string>
+    <string name="guest_user_desc">Masuk dengan Google atau Email untuk menyinkronkan daftar favorit di semua perangkat Anda.</string>
+    <string name="sign_in_title">Masuk</string>
+    <string name="sign_up_title">Daftar Akun Baru</string>
+    <string name="sign_in_google">Lanjutkan dengan Google</string>
+    <string name="sign_in_email">Masuk dengan Email</string>
+    <string name="email_label">Alamat Email</string>
+    <string name="password_label">Kata Sandi</string>
+    <string name="name_label">Nama Lengkap</string>
+    <string name="forgot_password">Lupa Kata Sandi?</string>
+    <string name="reset_password_title">Atur Ulang Kata Sandi</string>
+    <string name="reset_password_desc">Masukkan email Anda untuk menerima tautan atur ulang kata sandi.</string>
+    <string name="send_reset_link">Kirim Tautan Atur Ulang</string>
+    <string name="reset_email_sent">Tautan atur ulang kata sandi telah dikirim ke email Anda.</string>
+    <string name="no_account_prompt">Belum punya akun? Daftar</string>
+    <string name="have_account_prompt">Sudah punya akun? Masuk</string>
+    <string name="sign_out">Keluar</string>
+    <string name="sign_out_confirm">Apakah Anda yakin ingin keluar?</string>
+    <string name="delete_account">Hapus Akun</string>
+    <string name="delete_account_confirm">Tindakan ini akan menghapus akun dan seluruh daftar favorit Anda secara permanen. Tindakan ini tidak dapat dibatalkan.</string>
+    <string name="cancel">Batal</string>
+    <string name="confirm">Konfirmasi</string>
+    <string name="delete">Hapus</string>
+
+    <!-- Pengaturan -->
+    <string name="settings_title">Pengaturan</string>
+    <string name="theme_title">Tema Tampilan</string>
+    <string name="theme_system">Ikuti Sistem</string>
+    <string name="theme_light">Mode Terang</string>
+    <string name="theme_dark">Mode Gelap</string>
+    <string name="language_title">Bahasa</string>
+    <string name="language_system">Default Sistem</string>
+    <string name="language_en">English</string>
+    <string name="language_id">Bahasa Indonesia</string>
+
+    <!-- Atribusi & Tentang -->
+    <string name="about_title">Tentang CiLog</string>
+    <string name="app_version">Versi %1$s</string>
+    <string name="tmdb_attribution">Produk ini menggunakan data dari TMDB API namun tidak didukung atau disertifikasi secara resmi oleh TMDB.</string>
+
+    <!-- Status & Error -->
+    <string name="loading">Memuat film...</string>
+    <string name="error_generic">Gagal memuat data. Periksa koneksi internet Anda.</string>
+    <string name="retry">Coba Lagi</string>
+    <string name="error_auth_invalid">Email atau kata sandi tidak valid.</string>
+    <string name="error_auth_recent_login">Silakan masuk kembali sebelum menghapus akun Anda.</string>
+</resources>

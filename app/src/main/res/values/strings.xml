@@ -1,0 +1,92 @@
+<resources>
+    <string name="app_name">CiLog</string>
+    <string name="app_tagline">Cinema Catalog</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_favorites">Favorites</string>
+    <string name="nav_account">Account</string>
+
+    <!-- Categories -->
+    <string name="category_popular">Popular</string>
+    <string name="category_now_playing">Now Playing</string>
+    <string name="category_upcoming">Upcoming</string>
+    <string name="category_top_rated">Top Rated</string>
+
+    <!-- Detail Screen -->
+    <string name="overview_title">Overview</string>
+    <string name="cast_title">Cast &amp; Crew</string>
+    <string name="recommendations_title">More Like This</string>
+    <string name="watch_providers_title">Available On (Indonesia)</string>
+    <string name="watch_trailer">Watch Trailer</string>
+    <string name="no_trailer_available">No trailer available for this movie.</string>
+    <string name="synopsis_fallback_notice">Overview is only available in English.</string>
+    <string name="rating_score">%1$.1f / 10</string>
+    <string name="runtime_format">%1$d min</string>
+    <string name="release_date_label">Release Date: %1$s</string>
+    <string name="genre_label">Genre</string>
+
+    <!-- Search Screen -->
+    <string name="search_placeholder">Search movies, genres, actors...</string>
+    <string name="search_empty_title">Find Your Next Movie</string>
+    <string name="search_empty_desc">Explore thousands of movies from TMDB catalog.</string>
+    <string name="search_no_results">No movies found for \"%1$s\".</string>
+
+    <!-- Favorites Screen -->
+    <string name="favorites_title">My Favorites</string>
+    <string name="favorites_empty_title">No Favorites Yet</string>
+    <string name="favorites_empty_desc">Browse the catalog and tap the heart icon to save your favorite movies here!</string>
+    <string name="favorite_added">Movie added to favorites</string>
+    <string name="favorite_removed">Movie removed from favorites</string>
+    <string name="favorite_login_required">Please sign in to save movies to your cross-device favorites.</string>
+
+    <!-- Account & Auth Screen -->
+    <string name="account_title">Profile &amp; Account</string>
+    <string name="guest_user_title">Guest User</string>
+    <string name="guest_user_desc">Sign in with Google or Email to sync your favorite movies across all your devices.</string>
+    <string name="sign_in_title">Sign In</string>
+    <string name="sign_up_title">Create Account</string>
+    <string name="sign_in_google">Continue with Google</string>
+    <string name="sign_in_email">Sign In with Email</string>
+    <string name="email_label">Email Address</string>
+    <string name="password_label">Password</string>
+    <string name="name_label">Full Name</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="reset_password_title">Reset Password</string>
+    <string name="reset_password_desc">Enter your email and we\'ll send you a link to reset your password.</string>
+    <string name="send_reset_link">Send Reset Link</string>
+    <string name="reset_email_sent">Password reset link has been sent to your email.</string>
+    <string name="no_account_prompt">Don\'t have an account? Sign Up</string>
+    <string name="have_account_prompt">Already have an account? Sign In</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="sign_out_confirm">Are you sure you want to sign out?</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="delete_account_confirm">This will permanently delete your account and all saved favorites. This action cannot be undone.</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="delete">Delete</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="theme_title">Theme</string>
+    <string name="theme_system">Follow System</string>
+    <string name="theme_light">Light Mode</string>
+    <string name="theme_dark">Dark Mode</string>
+    <string name="language_title">Language</string>
+    <string name="language_system">System Default</string>
+    <string name="language_en">English</string>
+    <string name="language_id">Bahasa Indonesia</string>
+
+    <!-- Attribution & About -->
+    <string name="about_title">About CiLog</string>
+    <string name="app_version">Version %1$s</string>
+    <string name="tmdb_attribution">This product uses the TMDB API but is not endorsed or certified by TMDB.</string>
+
+    <!-- Status & Errors -->
+    <string name="loading">Loading movies...</string>
+    <string name="error_generic">Something went wrong. Please check your connection.</string>
+    <string name="retry">Retry</string>
+    <string name="error_auth_invalid">Invalid email or password.</string>
+    <string name="error_auth_recent_login">Please re-login before deleting your account.</string>
+</resources>

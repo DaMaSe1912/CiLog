@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "542288722953",
+    "project_id": "cilog-b3cdc",
+    "storage_bucket": "cilog-b3cdc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542288722953:android:3fdb11b07e9c8b598e8cd8",
+        "android_client_info": {
+          "package_name": "com.damay.cilog"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPrBghalj7UAP2tjcwfQmqMEBkb0Eq5u8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
