@@ -22,6 +22,17 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
+data class HomeOverviewData(
+    val featuredList: List<Movie> = emptyList(),
+    val popular: List<Movie> = emptyList(),
+    val nowPlaying: List<Movie> = emptyList(),
+    val upcoming: List<Movie> = emptyList(),
+    val topRated: List<Movie> = emptyList()
+) {
+    val featured: Movie?
+        get() = featuredList.firstOrNull()
+}
+
 @Singleton
 class MovieRepository @Inject constructor(
     private val apiService: TmdbApiService
@@ -39,6 +50,60 @@ class MovieRepository @Inject constructor(
             config = PagingConfig(pageSize = 20, enablePlaceholders = false),
             pagingSourceFactory = { MoviePagingSource(apiService, searchQuery = query, language = language) }
         ).flow
+    }
+
+    fun getHomeOverview(language: String): Flow<HomeOverviewData> = flow {
+        if (BuildConfig.TMDB_API_KEY.isBlank()) {
+            val allMock = (MockMovieData.topRatedMovies + MockMovieData.popularMovies + MockMovieData.nowPlayingMovies + MockMovieData.upcomingMovies).distinctBy { it.id }
+            val topFeatured = allMock.sortedByDescending { it.voteAverage }.take(5)
+            emit(
+                HomeOverviewData(
+                    featuredList = topFeatured,
+                    popular = MockMovieData.popularMovies,
+                    nowPlaying = MockMovieData.nowPlayingMovies,
+                    upcoming = MockMovieData.upcomingMovies,
+                    topRated = MockMovieData.topRatedMovies
+                )
+            )
+            return@flow
+        }
+
+        try {
+            val popularDto = apiService.getPopularMovies(1, language)
+            val nowPlayingDto = apiService.getNowPlayingMovies(1, language)
+            val upcomingDto = apiService.getUpcomingMovies(1, language)
+            val topRatedDto = apiService.getTopRatedMovies(1, language)
+
+            val popularList = popularDto.results.map { it.toDomain() }
+            val nowPlayingList = nowPlayingDto.results.map { it.toDomain() }
+            val upcomingList = upcomingDto.results.map { it.toDomain() }
+            val topRatedList = topRatedDto.results.map { it.toDomain() }
+
+            val allCombined = (topRatedList + popularList + nowPlayingList + upcomingList).distinctBy { it.id }
+            val topFeatured = allCombined.sortedByDescending { it.voteAverage }.take(5)
+
+            emit(
+                HomeOverviewData(
+                    featuredList = topFeatured,
+                    popular = popularList,
+                    nowPlaying = nowPlayingList,
+                    upcoming = upcomingList,
+                    topRated = topRatedList
+                )
+            )
+        } catch (e: Exception) {
+            val allMock = (MockMovieData.topRatedMovies + MockMovieData.popularMovies).distinctBy { it.id }
+            val topFeatured = allMock.sortedByDescending { it.voteAverage }.take(5)
+            emit(
+                HomeOverviewData(
+                    featuredList = topFeatured,
+                    popular = MockMovieData.popularMovies,
+                    nowPlaying = MockMovieData.nowPlayingMovies,
+                    upcoming = MockMovieData.upcomingMovies,
+                    topRated = MockMovieData.topRatedMovies
+                )
+            )
+        }
     }
 
     fun getMovieDetail(movieId: Int, language: String): Flow<Result<MovieDetail>> = flow {

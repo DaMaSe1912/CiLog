@@ -27,9 +27,10 @@ class UserPreferencesRepository @Inject constructor(
 
     val themeMode: Flow<AppThemeMode> = context.dataStore.data.map { preferences ->
         when (preferences[PreferencesKeys.THEME_MODE]) {
+            AppThemeMode.SYSTEM.name -> AppThemeMode.SYSTEM
             AppThemeMode.LIGHT.name -> AppThemeMode.LIGHT
             AppThemeMode.DARK.name -> AppThemeMode.DARK
-            else -> AppThemeMode.DARK // Default to cinematic dark
+            else -> AppThemeMode.SYSTEM
         }
     }
 

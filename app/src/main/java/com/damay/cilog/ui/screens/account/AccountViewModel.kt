@@ -41,6 +41,12 @@ class AccountViewModel @Inject constructor(
     private val _event = MutableSharedFlow<AccountEvent>()
     val event: SharedFlow<AccountEvent> = _event.asSharedFlow()
 
+    fun refreshUser() {
+        viewModelScope.launch {
+            authRepository.reloadCurrentUser()
+        }
+    }
+
     fun signOut() {
         authRepository.signOut()
     }

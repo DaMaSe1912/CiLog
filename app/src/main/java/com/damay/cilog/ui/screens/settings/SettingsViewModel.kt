@@ -23,7 +23,7 @@ class SettingsViewModel @Inject constructor(
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = AppThemeMode.DARK
+            initialValue = AppThemeMode.SYSTEM
         )
 
     val languageMode: StateFlow<AppLanguageMode> = preferencesRepository.languageMode

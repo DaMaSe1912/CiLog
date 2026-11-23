@@ -26,6 +26,7 @@ fun CategoryFilterChips(
     modifier: Modifier = Modifier
 ) {
     val categories = listOf(
+        MovieCategory.ALL to R.string.category_all,
         MovieCategory.POPULAR to R.string.category_popular,
         MovieCategory.NOW_PLAYING to R.string.category_now_playing,
         MovieCategory.UPCOMING to R.string.category_upcoming,
@@ -52,10 +53,14 @@ fun CategoryFilterChips(
                 colors = FilterChipDefaults.filterChipColors(
                     selectedContainerColor = MaterialTheme.colorScheme.primary,
                     selectedLabelColor = Color.White,
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                    containerColor = MaterialTheme.colorScheme.surface,
                     labelColor = MaterialTheme.colorScheme.onSurfaceVariant
                 ),
-                border = null
+                border = FilterChipDefaults.filterChipBorder(
+                    enabled = true,
+                    selected = isSelected,
+                    borderColor = if (isSelected) Color.Transparent else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f)
+                )
             )
         }
     }

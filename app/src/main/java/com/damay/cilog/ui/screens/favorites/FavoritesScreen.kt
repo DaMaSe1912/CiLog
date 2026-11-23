@@ -1,5 +1,6 @@
 package com.damay.cilog.ui.screens.favorites
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -177,16 +178,16 @@ private fun FavoriteCard(
     onRemoveClick: () -> Unit
 ) {
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
-            .clickable { onMovieClick(favorite.movieId) },
+        onClick = { onMovieClick(favorite.movieId) },
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant
-        )
+            containerColor = MaterialTheme.colorScheme.surface
+        ),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f)),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        modifier = Modifier.fillMaxWidth()
     ) {
-        Column {
+        Column(modifier = Modifier.clip(RoundedCornerShape(12.dp))) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()

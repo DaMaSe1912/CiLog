@@ -82,7 +82,9 @@ fun AuthScreen(
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var confirmPassword by remember { mutableStateOf("") }
     var isPasswordVisible by remember { mutableStateOf(false) }
+    var isConfirmPasswordVisible by remember { mutableStateOf(false) }
     var showForgotPasswordDialog by remember { mutableStateOf(false) }
     var forgotEmail by remember { mutableStateOf("") }
 
@@ -242,6 +244,38 @@ fun AuthScreen(
                 modifier = Modifier.fillMaxWidth()
             )
 
+            // Confirm Password field (Sign Up only)
+            AnimatedVisibility(visible = isSignUp) {
+                Column {
+                    Spacer(modifier = Modifier.height(14.dp))
+                    OutlinedTextField(
+                        value = confirmPassword,
+                        onValueChange = {
+                            confirmPassword = it
+                            viewModel.clearError()
+                        },
+                        label = { Text(stringResource(R.string.confirm_password_label)) },
+                        leadingIcon = {
+                            Icon(Icons.Default.Lock, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                        },
+                        trailingIcon = {
+                            IconButton(onClick = { isConfirmPasswordVisible = !isConfirmPasswordVisible }) {
+                                Icon(
+                                    imageVector = if (isConfirmPasswordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
+                                    contentDescription = "Toggle confirm password",
+                                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        },
+                        visualTransformation = if (isConfirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                        singleLine = true,
+                        shape = RoundedCornerShape(12.dp),
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+            }
+
             // Forgot password button (Sign In only)
             if (!isSignUp) {
                 Box(modifier = Modifier.fillMaxWidth()) {
@@ -268,7 +302,7 @@ fun AuthScreen(
             Button(
                 onClick = {
                     if (isSignUp) {
-                        viewModel.signUpWithEmail(name, email, password)
+                        viewModel.signUpWithEmail(name, email, password, confirmPassword)
                     } else {
                         viewModel.signInWithEmail(email, password)
                     }
@@ -304,6 +338,7 @@ fun AuthScreen(
             TextButton(
                 onClick = {
                     isSignUp = !isSignUp
+                    confirmPassword = ""
                     viewModel.clearError()
                 }
             ) {

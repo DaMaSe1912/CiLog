@@ -1,6 +1,7 @@
 package com.damay.cilog.ui.screens.account
 
 import android.widget.Toast
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -78,6 +79,7 @@ fun AccountScreen(
     val recentLoginRequiredMessage = stringResource(R.string.error_auth_recent_login)
 
     LaunchedEffect(Unit) {
+        viewModel.refreshUser()
         viewModel.event.collect { event ->
             when (event) {
                 is AccountEvent.AccountDeleted -> {
@@ -124,10 +126,18 @@ fun AccountScreen(
             Card(
                 shape = RoundedCornerShape(16.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant
+                    containerColor = MaterialTheme.colorScheme.surface
                 ),
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f)),
+                elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
+                val displayName = currentUser?.displayName?.trim()?.ifBlank { null }
+                val displayEmail = currentUser?.email?.trim()?.ifBlank { null }
+                val initial = (displayName?.take(1) ?: displayEmail?.take(1) ?: "G").uppercase()
+                val primaryText = displayName ?: displayEmail ?: stringResource(R.string.guest_user_title)
+                val secondaryText = if (currentUser != null) (displayEmail ?: "") else stringResource(R.string.guest_user_desc)
+
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.padding(16.dp)
@@ -140,9 +150,7 @@ fun AccountScreen(
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = (currentUser?.displayName?.take(1)
-                                ?: currentUser?.email?.take(1)
-                                ?: "G").uppercase(),
+                            text = initial,
                             color = Color.White,
                             fontSize = 24.sp,
                             fontWeight = FontWeight.Bold
@@ -153,13 +161,13 @@ fun AccountScreen(
 
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = currentUser?.displayName ?: currentUser?.email ?: stringResource(R.string.guest_user_title),
+                            text = primaryText,
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.onSurface
                         )
                         Text(
-                            text = if (currentUser != null) currentUser?.email ?: "" else stringResource(R.string.guest_user_desc),
+                            text = secondaryText,
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -207,8 +215,10 @@ fun AccountScreen(
             Card(
                 shape = RoundedCornerShape(14.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant
+                    containerColor = MaterialTheme.colorScheme.surface
                 ),
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f)),
+                elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Column {
@@ -235,8 +245,10 @@ fun AccountScreen(
                 Card(
                     shape = RoundedCornerShape(14.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceVariant
+                        containerColor = MaterialTheme.colorScheme.surface
                     ),
+                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f)),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Column {
@@ -248,7 +260,7 @@ fun AccountScreen(
                         )
 
                         HorizontalDivider(
-                            color = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f),
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.06f),
                             thickness = 1.dp
                         )
 
@@ -267,8 +279,10 @@ fun AccountScreen(
             Card(
                 shape = RoundedCornerShape(14.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant
+                    containerColor = MaterialTheme.colorScheme.surface
                 ),
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f)),
+                elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {

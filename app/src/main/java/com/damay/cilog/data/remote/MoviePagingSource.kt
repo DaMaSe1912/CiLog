@@ -7,6 +7,7 @@ import com.damay.cilog.data.model.Movie
 import com.damay.cilog.data.model.toDomain
 
 enum class MovieCategory {
+    ALL,
     POPULAR,
     NOW_PLAYING,
     UPCOMING,

@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import com.damay.cilog.data.local.UserPreferencesRepository
@@ -24,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
 
         setContent {
-            val themeMode by preferencesRepository.themeMode.collectAsState(initial = AppThemeMode.DARK)
+            val themeMode by preferencesRepository.themeMode.collectAsState(initial = AppThemeMode.SYSTEM)
 
             CilogTheme(themeMode = themeMode) {
                 MainScreen()

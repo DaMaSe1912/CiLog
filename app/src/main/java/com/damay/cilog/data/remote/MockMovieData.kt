@@ -158,6 +158,16 @@ object MockMovieData {
 
     val topRatedMovies = listOf(
         Movie(
+            id = 94605,
+            title = "Arcane",
+            overview = "Di tengah pertikaian sengit antara kota kembar Piltover dan Zaun, dua saudari bertarung di pihak yang berseberangan dalam perang teknologi sihir dan keyakinan.",
+            posterUrl = "https://image.tmdb.org/t/p/w500/fqldf2t8ztc9aiwn397FvFeQUjM.jpg",
+            backdropUrl = "https://image.tmdb.org/t/p/w780/27W462sZGErmm4z8vuhk6tQ3W6v.jpg",
+            releaseDate = "2024-11-09",
+            voteAverage = 8.9,
+            voteCount = 5400
+        ),
+        Movie(
             id = 278,
             title = "The Shawshank Redemption",
             overview = "Kisah harapan dan persahabatan seorang bankir yang dijatuhi hukuman penjara seumur hidup atas kejahatan yang tidak dilakukannya.",

@@ -9,10 +9,14 @@
     <string name="nav_account">Akun</string>
 
     <!-- Kategori -->
+    <string name="category_all">Semua</string>
     <string name="category_popular">Populer</string>
     <string name="category_now_playing">Sedang Tayang</string>
     <string name="category_upcoming">Akan Tayang</string>
     <string name="category_top_rated">Rating Tertinggi</string>
+    <string name="see_all">Lihat Semua</string>
+    <string name="featured_title">Sorotan Utama</string>
+    <string name="explore_movie">Buka Film</string>
 
     <!-- Layar Detail -->
     <string name="overview_title">Sinopsis</string>
@@ -51,7 +55,10 @@
     <string name="sign_in_email">Masuk dengan Email</string>
     <string name="email_label">Alamat Email</string>
     <string name="password_label">Kata Sandi</string>
+    <string name="confirm_password_label">Konfirmasi Kata Sandi</string>
     <string name="name_label">Nama Lengkap</string>
+    <string name="error_name_empty">Nama lengkap tidak boleh kosong.</string>
+    <string name="error_password_match">Konfirmasi kata sandi tidak cocok.</string>
     <string name="forgot_password">Lupa Kata Sandi?</string>
     <string name="reset_password_title">Atur Ulang Kata Sandi</string>
     <string name="reset_password_desc">Masukkan email Anda untuk menerima tautan atur ulang kata sandi.</string>
