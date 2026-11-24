@@ -23,14 +23,14 @@ class FavoritesViewModel @Inject constructor(
         .map { it != null }
         .stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
+            started = SharingStarted.Eagerly,
             initialValue = authRepository.isUserLoggedIn
         )
 
     val favorites: StateFlow<List<FavoriteMovie>> = favoritesRepository.getFavorites()
         .stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
+            started = SharingStarted.Eagerly,
             initialValue = emptyList()
         )
 

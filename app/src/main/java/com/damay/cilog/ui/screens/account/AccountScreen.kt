@@ -17,24 +17,30 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
 import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.DeleteForever
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -55,6 +61,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -71,10 +80,13 @@ fun AccountScreen(
 ) {
     val currentUser by viewModel.currentUser.collectAsState()
     val isDeleting by viewModel.isDeleting.collectAsState()
+    val deleteError by viewModel.deleteError.collectAsState()
     val context = LocalContext.current
 
     var showSignOutDialog by remember { mutableStateOf(false) }
     var showDeleteAccountDialog by remember { mutableStateOf(false) }
+    var deletePassword by remember { mutableStateOf("") }
+    var isDeletePasswordVisible by remember { mutableStateOf(false) }
 
     val recentLoginRequiredMessage = stringResource(R.string.error_auth_recent_login)
 
@@ -83,7 +95,9 @@ fun AccountScreen(
         viewModel.event.collect { event ->
             when (event) {
                 is AccountEvent.AccountDeleted -> {
-                    Toast.makeText(context, "Account deleted successfully", Toast.LENGTH_SHORT).show()
+                    showDeleteAccountDialog = false
+                    deletePassword = ""
+                    Toast.makeText(context, context.getString(R.string.account_deleted_toast), Toast.LENGTH_SHORT).show()
                 }
                 is AccountEvent.RequireRecentLogin -> {
                     Toast.makeText(context, recentLoginRequiredMessage, Toast.LENGTH_LONG).show()
@@ -268,7 +282,11 @@ fun AccountScreen(
                             icon = Icons.Default.DeleteForever,
                             title = stringResource(R.string.delete_account),
                             titleColor = MaterialTheme.colorScheme.error,
-                            onClick = { showDeleteAccountDialog = true }
+                            onClick = {
+                                deletePassword = ""
+                                viewModel.clearDeleteError()
+                                showDeleteAccountDialog = true
+                            }
                         )
                     }
                 }
@@ -344,28 +362,129 @@ fun AccountScreen(
         )
     }
 
-    // Delete Account Dialog
+    // Delete Account Dialog with Password Confirmation
     if (showDeleteAccountDialog) {
         AlertDialog(
-            onDismissRequest = { showDeleteAccountDialog = false },
-            title = { Text(stringResource(R.string.delete_account), color = MaterialTheme.colorScheme.error) },
-            text = { Text(stringResource(R.string.delete_account_confirm)) },
+            onDismissRequest = {
+                if (!isDeleting) {
+                    showDeleteAccountDialog = false
+                    deletePassword = ""
+                    viewModel.clearDeleteError()
+                }
+            },
+            title = {
+                Text(
+                    text = stringResource(R.string.delete_account),
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold
+                )
+            },
+            text = {
+                Column {
+                    Text(
+                        text = stringResource(R.string.delete_account_confirm),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+
+                    Spacer(modifier = Modifier.height(14.dp))
+
+                    Text(
+                        text = stringResource(R.string.delete_account_password_prompt),
+                        style = MaterialTheme.typography.labelMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+
+                    Spacer(modifier = Modifier.height(6.dp))
+
+                    OutlinedTextField(
+                        value = deletePassword,
+                        onValueChange = {
+                            deletePassword = it
+                            viewModel.clearDeleteError()
+                        },
+                        label = { Text(stringResource(R.string.password_label)) },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Default.Lock,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        },
+                        trailingIcon = {
+                            IconButton(onClick = { isDeletePasswordVisible = !isDeletePasswordVisible }) {
+                                Icon(
+                                    imageVector = if (isDeletePasswordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
+                                    contentDescription = "Toggle password",
+                                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        },
+                        visualTransformation = if (isDeletePasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                        singleLine = true,
+                        isError = deleteError != null,
+                        shape = RoundedCornerShape(10.dp),
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    if (deleteError != null) {
+                        Spacer(modifier = Modifier.height(6.dp))
+                        Text(
+                            text = deleteError ?: "",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.error
+                        )
+                    }
+
+                    if (isDeleting) {
+                        Spacer(modifier = Modifier.height(14.dp))
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(22.dp),
+                                strokeWidth = 2.5.dp
+                            )
+                            Spacer(modifier = Modifier.width(10.dp))
+                            Text(
+                                text = stringResource(R.string.deleting_account_progress),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
+                }
+            },
             confirmButton = {
                 Button(
                     onClick = {
-                        viewModel.deleteAccount()
-                        showDeleteAccountDialog = false
+                        viewModel.deleteAccount(deletePassword)
                     },
+                    enabled = !isDeleting && deletePassword.isNotBlank(),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.error
-                    )
+                    ),
+                    shape = RoundedCornerShape(10.dp)
                 ) {
-                    Text(stringResource(R.string.delete))
+                    Text(
+                        text = stringResource(R.string.delete),
+                        fontWeight = FontWeight.Bold
+                    )
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showDeleteAccountDialog = false }) {
-                    Text(stringResource(R.string.cancel))
+                if (!isDeleting) {
+                    TextButton(onClick = {
+                        showDeleteAccountDialog = false
+                        deletePassword = ""
+                        viewModel.clearDeleteError()
+                    }) {
+                        Text(stringResource(R.string.cancel))
+                    }
                 }
             }
         )

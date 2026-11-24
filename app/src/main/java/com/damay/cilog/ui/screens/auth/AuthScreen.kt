@@ -90,6 +90,12 @@ fun AuthScreen(
 
     val scrollState = rememberScrollState()
 
+    LaunchedEffect(uiState) {
+        if (uiState is AuthUiState.Success) {
+            onAuthSuccess()
+        }
+    }
+
     LaunchedEffect(Unit) {
         viewModel.event.collect { event ->
             when (event) {

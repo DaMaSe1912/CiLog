@@ -138,7 +138,7 @@ fun HomeScreen(
                             HeroFeaturedCarousel(
                                 featuredList = homeOverview.featuredList,
                                 onMovieClick = onMovieClick,
-                                modifier = Modifier.padding(top = 4.dp, bottom = 16.dp)
+                                modifier = Modifier.padding(top = 2.dp, bottom = 16.dp)
                             )
                         }
                     }

@@ -1,10 +1,12 @@
 package com.damay.cilog.ui
 
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.damay.cilog.ui.components.CilogBottomBar
 import com.damay.cilog.ui.navigation.CilogNavGraph
@@ -19,11 +21,12 @@ fun MainScreen(
         bottomBar = {
             CilogBottomBar(navController = navController)
         },
+        contentWindowInsets = WindowInsets(0.dp),
         modifier = modifier.fillMaxSize()
     ) { innerPadding ->
         CilogNavGraph(
             navController = navController,
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding())
         )
     }
 }

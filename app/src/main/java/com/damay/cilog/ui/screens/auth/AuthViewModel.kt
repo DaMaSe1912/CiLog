@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -40,7 +41,7 @@ class AuthViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<AuthUiState>(AuthUiState.Idle)
     val uiState: StateFlow<AuthUiState> = _uiState.asStateFlow()
 
-    private val _event = MutableSharedFlow<AuthEvent>()
+    private val _event = MutableSharedFlow<AuthEvent>(extraBufferCapacity = 1)
     val event: SharedFlow<AuthEvent> = _event.asSharedFlow()
 
     fun signInWithEmail(email: String, password: String) {
@@ -135,6 +136,9 @@ class AuthViewModel @Inject constructor(
 
     private fun mapFirebaseError(error: Throwable): String {
         return when (error) {
+            is TimeoutCancellationException -> {
+                "Waktu permintaan habis (timeout). Silakan periksa koneksi internet Anda dan coba lagi."
+            }
             is FirebaseAuthWeakPasswordException -> {
                 "Kata sandi terlalu lemah. Gunakan minimal 6 karakter kombinasi huruf dan angka."
             }

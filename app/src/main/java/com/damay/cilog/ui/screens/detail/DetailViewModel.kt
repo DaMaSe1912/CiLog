@@ -84,11 +84,6 @@ class DetailViewModel @Inject constructor(
 
     fun toggleFavorite() {
         viewModelScope.launch {
-            if (!authRepository.isUserLoggedIn) {
-                _event.emit(DetailEvent.RequireAuth)
-                return@launch
-            }
-
             val currentState = _uiState.value
             if (currentState is DetailUiState.Success) {
                 val detail = currentState.detail
@@ -105,8 +100,10 @@ class DetailViewModel @Inject constructor(
 
                 if (isFavorite.value) {
                     favoritesRepository.removeFavorite(detail.id)
+                    _event.emit(DetailEvent.ShowMessage(com.damay.cilog.R.string.favorite_removed))
                 } else {
                     favoritesRepository.addFavorite(movie)
+                    _event.emit(DetailEvent.ShowMessage(com.damay.cilog.R.string.favorite_added))
                 }
             }
         }

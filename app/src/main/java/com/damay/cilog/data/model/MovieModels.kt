@@ -143,6 +143,7 @@ data class MovieDetail(
     val watchProviders: List<WatchProvider>
 )
 
+@Serializable
 data class FavoriteMovie(
     val movieId: Int = 0,
     val title: String = "",

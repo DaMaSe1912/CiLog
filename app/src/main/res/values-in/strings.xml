@@ -70,6 +70,9 @@
     <string name="sign_out_confirm">Apakah Anda yakin ingin keluar?</string>
     <string name="delete_account">Hapus Akun</string>
     <string name="delete_account_confirm">Tindakan ini akan menghapus akun dan seluruh daftar favorit Anda secara permanen. Tindakan ini tidak dapat dibatalkan.</string>
+    <string name="delete_account_password_prompt">Masukkan kata sandi Anda untuk konfirmasi:</string>
+    <string name="deleting_account_progress">Menghapus akun dari server…</string>
+    <string name="account_deleted_toast">Akun berhasil dihapus</string>
     <string name="cancel">Batal</string>
     <string name="confirm">Konfirmasi</string>
     <string name="delete">Hapus</string>
